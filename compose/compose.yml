@@ -1,0 +1,34 @@
+services:  # コンポースするサービスたち
+
+    go-api-srv: # サービスの名前
+        container_name: himaplus_go-api  # コンテナ名
+        build:  # ビルド設定
+            context: ../services/go-api/  # ビルドプロセスが実行されるパス 
+            dockerfile: Dockerfile  # Dockerfileのパス
+        environment: # 環境変数
+            TZ: ${TZ}
+        depends_on: # 開始順序とその条件を担保
+            mysql-db-srv:
+                condition: service_healthy # ヘルスチェック
+        networks: # 定義したネットワークを利用
+            - himaplus_db-net # dbに接続するネットワーク
+
+    mysql-db-srv: # サービスの名前
+        container_name: himaplus_mysql-db # コンテナ名
+        image: mysql:latest # pullするイメージ
+        environment: # 環境変数
+            TZ: ${TZ}
+        env_file: # 環境変数のまとまりをファイルに記述して渡す
+            - ../services/mysql-db/.env.mysql-db
+        healthcheck:   # ヘルスチェックの条件
+            test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "user", "-ppass"] # NONE, CMD, CMD-SHELL # CMDだと変数展開が不可なのでその場合CMD-SHELLかshell形式、environmentセクションで渡す変数(パスワードなど)で展開したいなら二連＄でエスケープ # localhostだと起動時の一時サービス(:socket connection)に接続する可能性があるようで、正式なサーバー(:network interfaceもlistenしている)に接続するために127.0.0.1を使うべきらしい
+            interval: 10s # ヘルスチェックの間隔 default: 30s
+            timeout: 5s # タイムアウトの長さ default: 30s
+            start_period: 5s # 最初のうちどれぐらいの期間失敗を無視するか default: 0s
+            retries: 4 # リトライ回数 default: 3
+        restart: always # コンテナの再起動
+        networks: # 定義したネットワークを利用
+            - himaplus_db-net # dbに接続するネットワーク
+
+networks: # ネットワークの定義
+    himaplus_db-net: # dbに接続するネットワーク

@@ -1,0 +1,38 @@
+services: # コンポースするサービスたち
+
+    go-api-srv: # サービス名
+        container_name: himaplus_dep_go-api  # コンテナ名
+        build: # ビルド設定
+            target: deploy-final
+        image: himaplus/go-api:stable # image name
+        volumes: # ボリュームの保持
+            - ../services/mysql-db/db_data:/var/lib/mysql # DBデータをホストに保持
+        # ports: # ホストマシンのポートとコンテナのポートをマッピング 
+        #      - "${API_DEPLOY_HOST_PORT}:4561"
+        networks: # 定義したネットワークを利用
+            himaplus_proxy-net: # リバースプロキシに接続するネットワーク
+
+    mysql-db-srv: # サービス名
+        container_name: himaplus_dep_mysql-db # コンテナ名
+    
+    nginx-reverse-proxy-srv: # サービス名
+        container_name: himaplus_dep_nginx-reverse-proxy # コンテナ名
+        build: # ビルド設定
+            context: ../services/nginx-reverse-proxy/ # ビルドプロセスが実行されるパス
+            dockerfile: Dockerfile  # Dockerfileのパス
+        image: himaplus/nginx-reverse-proxy:stable # image name
+        environment: # 環境変数
+            TZ: ${TZ}
+        volumes:
+            - ../services/nginx-reverse-proxy/nginx.conf:/etc/nginx/nginx.conf # nginxの全般設定
+        #     - ../services/nginx-reverse-proxy/ssl:/etc/nginx/ssl:ro # SSL証明書をマウント
+        ports: # ホストマシンのポートとコンテナのポートをマッピング 
+        - 80:80 # httpアクセス用のポート
+        # - 443:443 # httpsアクセス用のポート(TLS/SSL)
+        depends_on: # コンテナ起動順の関係 
+        - go-api-srv # apiサーバを先に立ち上げる
+        networks: # 定義したネットワークを利用
+            himaplus_proxy-net: # リバースプロキシに接続するネットワーク
+
+networks: # ネットワークの定義
+    himaplus_proxy-net: # リバースプロキシに接続するネットワーク
