@@ -11,4 +11,4 @@ cd "$sh_dir" || {
 source ./init.sh
 
 # 開始
-DOCKER_BUILDKIT=1 docker compose -p "${PROJECT_NAME}_develop" start
+DOCKER_BUILDKIT=1 docker compose -p "${PROJECT_NAME}_deploy" start
