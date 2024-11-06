@@ -40,7 +40,7 @@ ENTRYPOINT [ "./init.sh" ]
 # Stage1: ビルドのためのgoが入ったイメージ
 FROM base AS deploy-builder
 
-# 作業ディレクトリ
+#作業ディレクトリ
 WORKDIR /root/
 
 # ビルド処理
