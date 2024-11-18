@@ -22,8 +22,8 @@ Desktop.ini
 ## Generic items
 
 # env file
-.env
 *.env*
+!*.env*.template
 
 # log
 *.log
