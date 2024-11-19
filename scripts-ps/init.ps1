@@ -2,8 +2,29 @@
 # 変数の読み込みとディレクトリ移動
 
 # 変数を読み込み
-.\env.ini
 
+# env.ini ファイルのパス
+$envFile = ".\env.ini"
+# ファイルが存在するか確認
+if (-Not (Test-Path $envFile)) {
+    Write-Error "env.ini is not found: $envFile"
+    exit
+}
+# ファイルの内容を行ごとに読み込む
+Get-Content $envFile | ForEach-Object {
+    # コメント行と空行をスキップ
+    if ($_ -match "^\s*#") { return }
+    if ($_.Trim() -eq "") { return }
+
+    # キーと値を '=' で分割
+    $parts = $_ -split "=", 2
+    if ($parts.Length -eq 2) {
+        # 変数を設定
+        $key = $parts[0].Trim()
+        $value = $parts[1].Trim()
+        [System.Environment]::SetEnvironmentVariable($key, $value, "Process")
+    }
+}
 
 # composeディレクトリに移動
 # Set-Location ..\compose -ErrorAction Stop

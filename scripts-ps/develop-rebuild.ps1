@@ -6,7 +6,9 @@ $sh_dir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location -Path $sh_dir
 
 # init.ps1を実行
-.\init.ps1
+. .\init.ps1
+
+Write-Output $PROJECT_NAME
 
 # 破棄処理
 docker-compose -p "${env:PROJECT_NAME}_deploy" down --rmi all --remove-orphans --volumes --timeout 15
