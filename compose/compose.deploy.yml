@@ -7,8 +7,7 @@ services: # コンポースするサービスたち
         image: himaplus/go-api:stable # image name
         volumes: # ボリュームの保持
             - ../services/mysql-db/db_data:/var/lib/mysql # DBデータをホストに保持
-        # ports: # ホストマシンのポートとコンテナのポートをマッピング 
-        #      - "${API_DEPLOY_HOST_PORT}:4561"
+        restart: always  # コンテナの再起動
         networks: # 定義したネットワークを利用
             himaplus_proxy-net: # リバースプロキシに接続するネットワーク
 

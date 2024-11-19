@@ -10,6 +10,7 @@ services: # コンポースするサービスたち
             - "../services/go-api/log/:/root/log/" # log
         ports: # ホストマシンのポートとコンテナのポートをマッピング
             - "${API_DEVELOP_HOST_PORT:-4561}:4561"
+        restart: always # コンテナの再起動
         tty: true # 仮想端末(:ターミナル)をコンテナに提供し、コンテナ内で対話的操作を可能にする # なお、ttyを設定しても、compose.services.service.commandやDockerfile.CMD, ENTRYPOINTでプロセスを指定している場合はそれが終了してしまうと継続できない
         stdin_open: true # コンテナの標準入力の受付オプション、ターミナルで対話できる
 
@@ -17,7 +18,5 @@ services: # コンポースするサービスたち
         container_name: himaplus_dev_mysql-db # コンテナ名
         volumes: # ボリュームの保持
             - ../services/mysql-db/db_data_dev:/var/lib/mysql # DBデータをホストに保持
-        # ports: # ホストマシンのポートとコンテナのポートをマッピング 
-        #     - "${MYSQL_DEVELOP_HOST_PORT:-3306}:3306" # テスト用にホストに繋げる # 3306がローカルのポートで使われている可能性がある
         tty: true # 仮想端末(:ターミナル)をコンテナに提供し、コンテナ内で対話的操作を可能にする # なお、ttyを設定しても、compose.services.service.commandやDockerfile.CMD, ENTRYPOINTでプロセスを指定している場合はそれが終了してしまうと継続できない
         stdin_open: true # コンテナの標準入力の受付オプション、ターミナルで対話できる
