@@ -101,6 +101,40 @@ Attach VS Codeでインストールされるvscode-server（:VSCodeのコンテ�
 
 他にもコンテナ内でssh-keygenする, 登録済みのホストの鍵を手動またはvolumesで追加などがある
 
+#### macでの方法
+
+1. ターミナルで以下を実行して起動と秘密鍵の登録
+
+  ```powershell
+  eval $(ssh-agent)
+
+  ssh-add
+  ```
+2. コンテナにアタッチして`ssh -T git@github.com`で疎通
+
+#### windowsでの方法
+
+1. Win + Rで`services.msc`を実行
+2. OpenSSH Authentication Agentを探し、プロパティからスタートアップの種類を自動に変更、適用
+3. 開始ボタンでサービスを開始
+4. 管理者権限PowerShellで以下を実行
+
+  ```powershell
+  Set-Service ssh-agent -StartupType Automatic
+  Start-Service ssh-agent
+  ```
+
+5. PowerShellで以下を実行して起動と秘密鍵の登録
+
+  ```powershell
+  Start-Service ssh-agent
+  Get-Service ssh-agent
+
+  ssh-add
+  ```
+
+6. コンテナにアタッチして`ssh -T git@github.com`で疎通
+
 ## スクリプトファイルたち
 
 コンテナーを建てたり壊したりする用のスクリプトファイルの説明  
