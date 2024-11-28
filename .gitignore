@@ -43,8 +43,11 @@ memo.*
 ## Docker-related items
 
 # volumes
+services/go-api/himaplus-api/
 services/go-api/share/
 services/go-api/log/
+services/pb-authn/himaplus-authn/
+services/pb-authn/log/
 services/mysql-db/db_data/
 services/mysql-db/db_data_dev/
 
