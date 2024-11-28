@@ -1,7 +1,7 @@
 # 開発用やビルド用の共通ステージ
 
 # Stage0: goの入ったイメージ
-FROM golang:1.22.2-bullseye AS base
+FROM golang:1.23-bookworm AS base
 
 # aptでパッケージリストの更新とgitインストール
 RUN apt-get update && \
@@ -30,7 +30,9 @@ EXPOSE 8090
 
 # 実行用のスクリプトをコピー
 COPY ./init.sh .
-RUN chmod +x ./init.sh
+# 改行コードを揃えて、権限も変更
+RUN sed -i -e 's/\r//g' ./init.sh && \
+    chmod +x ./init.sh
 
 # スクリプトで起動
 ENTRYPOINT [ "./init.sh" ]
@@ -55,7 +57,7 @@ RUN \
     go build -o himaplus-pb-authn
 
 # Stage2: 公開用のための軽量debian
-FROM debian:bullseye-slim AS deploy-final
+FROM debian:bookworm-slim AS deploy-final
 
 # 作業ディレクトリ
 WORKDIR /usr/local/bin/
