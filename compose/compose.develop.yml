@@ -20,3 +20,12 @@ services: # コンポースするサービスたち
             - ../services/mysql-db/db_data_dev:/var/lib/mysql # DBデータをホストに保持
         tty: true # 仮想端末(:ターミナル)をコンテナに提供し、コンテナ内で対話的操作を可能にする # なお、ttyを設定しても、compose.services.service.commandやDockerfile.CMD, ENTRYPOINTでプロセスを指定している場合はそれが終了してしまうと継続できない
         stdin_open: true # コンテナの標準入力の受付オプション、ターミナルで対話できる
+
+    pb-authn-srv: # サービスの名前
+        container_name: himaplus_dev_pb-authn # コンテナ名
+        build:  # ビルド設定
+            target: develop
+        image: himaplus/pb-authn_dev:latest # image name
+        volumes:  # ボリュームの保持
+            - ../services/pb-authn/himaplus-authn:/root/himaplus-authn # 開発環境
+            - "../services/pb-authn/log/:/root/log/" # log

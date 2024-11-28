@@ -35,5 +35,14 @@ services: # コンポースするサービスたち
         networks: # 定義したネットワークを利用
             himaplus_rev-pxy-net: # リバースプロキシに接続するネットワーク
 
+    pb-authn-srv: # サービスの名前
+        container_name: himaplus_dep_pb-authn # コンテナ名
+        build:  # ビルド設定
+            target: deploy-final
+        image: himaplus/pb-authn:stable # image name 
+        volumes:  # ボリュームの保持
+            - ../services/pb-authn/himaplus-authn:/root/himaplus-authn # 開発環境
+            - "../services/pb-authn/log/:/root/log/" # log
+
 networks: # ネットワークの定義
     himaplus_rev-pxy-net: # リバースプロキシに接続するネットワーク
