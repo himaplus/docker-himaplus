@@ -25,18 +25,18 @@ echo "DATE: $(date)" 2>&1 | tee -a /root/log/execute.log # datetime
 echo "PWD: $(pwd)" 2>&1 | tee -a /root/log/execute.log   # /root/copy
 echo "Checking directories: /root/" 2>&1 | tee -a /root/log/execute.log
 find /root/ -maxdepth 0 -exec ls -la {} + 2>&1 | tee -a /root/log/execute.log # ls -la /root/
-echo "Checking directories: /root/share" 2>&1 | tee -a /root/log/execute.log
-find /root/share -maxdepth 0 -exec ls -la {} + 2>&1 | tee -a /root/log/execute.log # ls -la /root/share/
+echo "Checking directories: /root/himaplus-api" 2>&1 | tee -a /root/log/execute.log
+find /root/himaplus-api -maxdepth 0 -exec ls -la {} + 2>&1 | tee -a /root/log/execute.log # ls -la /root/himaplus-api/
 
 # volumesされているはずのディレクトリが空(初回ビルド時)なら、
-if [ -d "/root/share/" ] && [ -z "$(ls -A "/root/share/")" ]; then # -dでディレクトリかどうか確認し、かつ、-zでls -Aによるリスト化したフォルダ内のリストが空なら真
+if [ -d "/root/himaplus-api/" ] && [ -z "$(ls -A "/root/himaplus-api/")" ]; then # -dでディレクトリかどうか確認し、かつ、-zでls -Aによるリスト化したフォルダ内のリストが空なら真
     # log
     echo Clone now... 2>&1 | tee -a /root/log/execute.log
 
     # ソースコードのリポジトリをクローン、
-    git clone https://github.com/unSerori/himaplus-api -b develop /root/share/./
+    git clone https://github.com/unSerori/himaplus-api -b main /root/himaplus-api/./
     # copyされたファイルを適切な場所に移行
-    mv .env /root/share/
+    mv .env /root/himaplus-api/
 else
     # log
     echo Do not clone. 2>&1 | tee -a /root/log/execute.log
