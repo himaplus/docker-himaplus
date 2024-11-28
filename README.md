@@ -24,7 +24,7 @@ Docker Engine: 27.2.0
     ```
 
 3. .envファイルを作成
-   - `./composes/.env`: compose.ymlでDockerfileに対する引数として使うものや、プロジェクト全体で使う変数
+    - `./composes/.env`: compose.ymlでDockerfileに対する引数として使うものや、プロジェクト全体で使う変数
 
       ```env:./composes/.env
       TZ=Asia/Tokyo: タイムゾーン
@@ -33,7 +33,7 @@ Docker Engine: 27.2.0
       REV_PXY_HTTPS_HOST_PORT=443: デプロイ時のNginxコンテナのHTTPSポートをホストにマッピングする（ローカル環境のポートなどとの衝突の可能性）
       ```
 
-   - `./services/mysql-db/.env.mysql-db`: ビルド時にmysql-db-srvコンテナーにcompose.services.service.env_fileでファイルごと与える環境変数たち
+    - `./services/mysql-db/.env.mysql-db`: ビルド時にmysql-db-srvコンテナーにcompose.services.service.env_fileでファイルごと与える環境変数たち
 
       ```env:./services/mysql-db/.env.mysql-db
       MYSQL_ROOT_PASSWORD=root: mysql_serverのルートユーザーパスワード
@@ -42,7 +42,7 @@ Docker Engine: 27.2.0
       MYSQL_DATABASE=hima_db: 使用するdatabase名
       ```
 
-   - `./services/go-api/.env.go-api`: ビルド時にgo-api-srvコンテナーにCOPYされるenvファイル（`コンテナー内にコピーしたいリソースのため、go-api/内に置く`）で、Dockerを使わない場合もこれはhimaplus-apiのプロジェクトルートに必要
+    - `./services/go-api/.env.go-api`: ビルド時にgo-api-srvコンテナーにCOPYされるenvファイル（`コンテナー内にコピーしたいリソースのため、go-api/内に置く`）で、Dockerを使わない場合もこれはhimaplus-apiのプロジェクトルートに必要
 
         ```env:./services/go-api/.env.go-api
         MYSQL_USER=hima_user: DBに接続する際のログインユーザ名
@@ -55,6 +55,12 @@ Docker Engine: 27.2.0
         MULTIPART_IMAGE_MAX_SIZE=10485760: Multipart/form-dataの画像の制限サイズ（10MBなら10485760）
         REQ_BODY_MAX_SIZE=52428800: リクエストボディのマックスサイズ（50MBなら52428800）
         ```
+
+    - `./services/pb-authn/.env.pb-authn`: ビルド時にpb-authn-srvコンテナにCOPYされるenvファイル（`コンテナー内にコピーしたいリソースのため、pb-authn/内に置く`）で、Dockerを使わない場合もこれはhimaplus-authnのプロジェクトルートに必要
+
+    ```env:./services/pb-authn/.env.pb-authn
+    
+    ```
 
 4. デプロイor開発用のセットアップ  
    後述（[デプロイ用のセットアップ](#デプロイ用のセットアップについて) / [開発用のセットアップ](#開発用のセットアップについて)）
