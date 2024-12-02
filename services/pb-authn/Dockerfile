@@ -67,7 +67,7 @@ COPY --from=deploy-builder /root/himaplus-authn/himaplus-pb-authn himaplus-pb-au
 # 実行に必要なファイルのコピー
 COPY .env.pb-authn .env
 
-# httpポートの公開 pbはこのポートを次のために利用する[静的コンテンツの提供, スーパーユーザダッシュボード, REST-ish API]
+# httpポートの公開 pbはこのポートを次のために利用する[静的コンテンツの提供/*, スーパーユーザダッシュボード/_/, REST-ish API]
 EXPOSE 8090
 
 # ビルド済みの実行ファイルを本番環境でCMD起動
