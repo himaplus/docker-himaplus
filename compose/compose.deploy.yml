@@ -41,7 +41,7 @@ services: # コンポースするサービスたち
             target: deploy-final
         image: himaplus/pb-authn:stable # image name 
         volumes:  # ボリュームの保持
-            - "../services/pb-authn/pb_data:/root/himaplus-authn/pb-data/" # pbのsqlite
+            - "../services/pb-authn/pb_data:/root/himaplus-authn/pd_data/" # pbのsqlite
 
 networks: # ネットワークの定義
     himaplus_rev-pxy-net: # リバースプロキシに接続するネットワーク
