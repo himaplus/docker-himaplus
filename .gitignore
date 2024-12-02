@@ -48,6 +48,7 @@ services/go-api/share/
 services/go-api/log/
 services/pb-authn/himaplus-authn/
 services/pb-authn/log/
+services/pb-authn/pb_data/
 services/mysql-db/db_data/
 services/mysql-db/db_data_dev/
 
