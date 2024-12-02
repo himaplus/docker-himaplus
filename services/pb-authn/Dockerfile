@@ -52,7 +52,7 @@ RUN git clone https://github.com/unSerori/himaplus-authn.git -b main
 # ビルド処理
 RUN \
     # 移動
-    cd ./himaplus-authn && \
+    cd ./himaplus-authn &&\
     # ビルド なお、deploy-builderイメージにgo実行環境が入ってるのでビルドツールのDLは不要
     go build -o himaplus-pb-authn
 
