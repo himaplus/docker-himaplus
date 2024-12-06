@@ -9,10 +9,10 @@ cloneしてスクリプト実行で、自動的にコンテナー作成して開
 
 ### 開発環境
 
-Mac OS: Sequoia 15.1
-Visual Studio Code: 1.95.2
-Docker Desktop: 4.34.0
-Docker Engine: 27.2.0
+Mac OS: Sequoia 15.1  
+Visual Studio Code: 1.95.2  
+Docker Desktop: 4.34.0  
+Docker Engine: 27.2.0  
 
 ## 環境構築
 
