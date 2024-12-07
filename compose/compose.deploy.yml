@@ -10,6 +10,8 @@ services: # コンポースするサービスたち
         restart: always  # コンテナの再起動
         networks: # 定義したネットワークを利用
             himaplus_rev-pxy-net: # リバースプロキシに接続するネットワーク
+            himaplus_authn_srv-net: # リバースプロキシに接続するネットワーク
+
 
     mysql-db-srv: # サービス名
         container_name: himaplus_dep_mysql-db # コンテナ名
@@ -42,6 +44,9 @@ services: # コンポースするサービスたち
         image: himaplus/pb-authn:stable # image name 
         volumes:  # ボリュームの保持
             - "../services/pb-authn/pb_data:/root/himaplus-authn/pd_data/" # pbのsqlite
+        networks: # 定義したネットワークを利用
+            himaplus_authn_srv-net: # リバースプロキシに接続するネットワーク
 
 networks: # ネットワークの定義
     himaplus_rev-pxy-net: # リバースプロキシに接続するネットワーク
+    himaplus_authn_srv-net: # 認証サーバに接続するネットワーク
