@@ -11,17 +11,17 @@ Set-Location -Path $sh_dir
 Write-Output $PROJECT_NAME
 
 # 破棄処理
-docker-compose -p "${env:PROJECT_NAME}_deploy" down --rmi all --remove-orphans --volumes --timeout 15
+docker-compose -p "${env:PROJECT_NAME}_develop" down --rmi all --remove-orphans --volumes --timeout 15
 
 
 # キャッシュなしでビルド
 $env:DOCKER_BUILDKIT=1
-docker-compose -p "${env:PROJECT_NAME}_deploy" -f "compose.yml" -f "compose.develop.yml" build --no-cache
+docker-compose -p "${env:PROJECT_NAME}_develop" -f "compose.yml" -f "compose.develop.yml" build --no-cache
 
 
 # 起動
 $env:DOCKER_BUILDKIT=1
-docker-compose -p "${env:PROJECT_NAME}_deploy" -f "compose.yml" -f "compose.develop.yml" up -d
+docker-compose -p "${env:PROJECT_NAME}_develop" -f "compose.yml" -f "compose.develop.yml" up -d
 
 
 # 環境変数DOCKER_BUILDKITを設定する部分です。1を設定することで、Docker BuildKitを有効にする。BuildKitは、Dockerイメージのビルドをより効率的に行うための新しいビルドエンジンで、並列ビルドやキャッシュの最適化などの機能を提供。
