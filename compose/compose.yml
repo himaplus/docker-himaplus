@@ -27,7 +27,7 @@ services:  # コンポースするサービスたち
             timeout: 5s # タイムアウトの長さ default: 30s
             start_period: 5s # 最初のうちどれぐらいの期間失敗を無視するか default: 0s
             retries: 4 # リトライ回数 default: 3
-        restart: always # コンテナの再起動
+        # restart: always # コンテナの再起動
         networks: # 定義したネットワークを利用
             - himaplus_db-net # dbに接続するネットワーク
             - himaplus_authn-net # 認証サーバに接続するネットワーク
@@ -48,7 +48,7 @@ services:  # コンポースするサービスたち
         #     timeout: 5s # タイムアウトの長さ default: 30s
         #     start_period: 5s # 最初のうちどれぐらいの期間失敗を無視するか default: 0s
         #     retries: 4 # リトライ回数 default: 3
-        restart: always # コンテナの再起動
+        # restart: always # コンテナの再起動
         networks: # 定義したネットワークを利用
             - himaplus_db-net # dbに接続するネットワーク
             - himaplus_authn-net # 認証サーバに接続するネットワーク
